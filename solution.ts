@@ -1,4 +1,4 @@
-const formatValue = (value: number | string | boolean) => {
+const formatValue = (value: number | string | boolean): (string | number | boolean) => {
     if (typeof value === 'string') {
         return `${value.toUpperCase()}`;
     }
@@ -14,7 +14,16 @@ const formatValue = (value: number | string | boolean) => {
     return '';
 }
 
-// console.log(formatValue('hello'));
-// console.log(formatValue(50));
-// console.log(formatValue(false));
-// Problem - 01
+
+const getLength = (value: string | any[]): number => {
+    if (typeof value === "string") {
+        return value.length;
+    }
+
+    if (Array.isArray(value)) {
+        return value.length;
+    }
+
+    return 0;
+}
+
