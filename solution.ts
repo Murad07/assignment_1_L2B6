@@ -47,8 +47,9 @@ type Item = {
     rating: number;
 }
 const filterByRating = (items: Item[]): Item[] => {
-    return items.filter(item => item.rating >= 4);
+    return items.filter(item => item.rating >= 4 && item.rating <= 5);
 }
+
 
 
 type User = {
@@ -61,6 +62,7 @@ const filterActiveUsers = (users: User[]): User[] => {
     return users.filter(user => user.isActive);
 }
 
+
 interface Book {
     title: string;
     author: string;
@@ -71,6 +73,7 @@ interface Book {
 const printBookDetails = (book: Book): void => {
     console.log(`Title: ${book.title}, Author: ${book.author}, Published: ${book.publishedYear}, Available: ${book.isAvailable ? 'Yes' : 'No'}`);
 }
+
 
 
 type MyArray = (number | string)[];
@@ -112,8 +115,10 @@ const calculateTotalPrice = (products: Product[]): number => {
     if (products.length === 0) return 0;
 
     return products.reduce((acc, product) => {
-        const discount = product.discount ? product.discount : 0;
+        let discount = product.discount ? product.discount : 0;
+        discount = (discount >= 0 && discount <= 100) ? discount : 0;
 
         return acc + (product.price * product.quantity) * (1 - discount / 100);
     }, 0);
 }
+
