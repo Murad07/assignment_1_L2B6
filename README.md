@@ -43,3 +43,43 @@ Interface মূলত OOP এর নিয়ম গুলোর সাথে ভ�
 আর যদি আমাদের অধিক flexibility এর দরকার হয় বা তুলনা করার ক্ষেত্রে ইউনিয়ন, ইন্টারসেকশন বা প্রিমিটিভ type এর মতো কিছুর দরকার হয় তখন Type Alias বা Type ব্যবহার করবো।
 
 সুতরাং আলোচনা থেকে বুঝতে পারলাম আমরা আমাদের কাজের প্ৰয়োজন অনুযায়ী ঠিক করে নিয়ে interface বা type ব্যবহার করতে পারবো। 
+
+
+### What is the use of the keyof keyword in TypeScript? Provide an example
+
+TypeScript এ keyof কি এবং এটি কেন দরকার:
+keyof ব্যবহার করে আমরা একটা অবজেক্ট type থেকে তার প্রোপার্টির keys গুলো ব্যবহার করে একটি union type বানাতে পারি। 
+
+উদাহরণ হিসেবে:
+```
+type RichPeople = {
+	car: string;
+	bike: string;
+	cng: string;
+}
+```
+এখন আমরা নরমালি union type ব্যবহার করে যদি করি তাহলে:
+```
+type MyVechicle = “car” । “bike” । “cng”;
+```
+এভাবে করতাম, এটাকে এখন আমরা keyof ব্যবহার করে করলে নিচের মতো:
+```
+type MyVechicle = keyof RichPeople;
+```
+অর্থাৎ এখানে RichPeople এর key গুলো আছে। এবং আমরা যদি একটি function বানাই যা ব্যবহার করে আমরা কোন একটি প্রোপার্টি বের করবো যেমনঃ 
+```
+const getProperty = <X>(obj: X, key: keyof X) => {
+	return obj[key];
+}
+
+const goribPeople: RichPeople  = {
+	car: “BMW”,
+	bike: “Honda”,
+	cng: “TVS”
+}
+
+const result = getProperty(goribPeople, “bike”);
+```
+এই উদাহরণে keyof X নিশ্চিত করে যে key প্যারামিটারটি শুধুমাত্র X টাইপের অর্থাৎ RichPeople এর key গুলোর মধ্যে একটি হতে পার, যা আমাদের কোড কে সুরক্ষিত করে তোলে। 
+যেমন আমি যদি ভুল করে getProperty(goribPeople, “bikes”); লিখি তাহলে কম্পাইল টাইমেই ভুল ধরবে। 
+Generic function এবং ডায়নামিক প্রপার্টি access এর সময় এটি অত্যন্ত গুরুত্বপুর্ণ। 
