@@ -70,3 +70,33 @@ interface Book {
 const printBookDetails = (book: Book): void => {
     console.log(`Title: ${book.title}, Author: ${book.author}, Published: ${book.publishedYear}, Available: ${book.isAvailable ? 'Yes' : 'No'}`);
 }
+
+
+type MyArray = (number | string)[];
+const getUniqueValues = (arr1: MyArray, arr2: MyArray): MyArray => {
+    const result: MyArray = [];
+
+    function valueExists(value: number | string): boolean {
+        for (let r = 0; r < result.length; r++) {
+            if (result[r] === value) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    for (let i = 0; i < arr1.length; i++) {
+        if (!valueExists(arr1[i])) {
+            result[result.length] = arr1[i];
+        }
+    }
+
+    for (let j = 0; j < arr2.length; j++) {
+        if (!valueExists(arr2[j])) {
+            result[result.length] = arr2[j];
+        }
+    }
+
+    return result;
+}
+
