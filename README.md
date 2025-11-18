@@ -83,3 +83,30 @@ const result = getProperty(goribPeople, “bike”);
 এই উদাহরণে keyof X নিশ্চিত করে যে key প্যারামিটারটি শুধুমাত্র X টাইপের অর্থাৎ RichPeople এর key গুলোর মধ্যে একটি হতে পার, যা আমাদের কোড কে সুরক্ষিত করে তোলে। 
 যেমন আমি যদি ভুল করে getProperty(goribPeople, “bikes”); লিখি তাহলে কম্পাইল টাইমেই ভুল ধরবে। 
 Generic function এবং ডায়নামিক প্রপার্টি access এর সময় এটি অত্যন্ত গুরুত্বপুর্ণ। 
+
+
+### Explain the difference between any, unknown, and never types in TypeScript.
+#### Typescript এ - any, unknown and never টাইপ। 
+
+any: যখন আমরা type সম্পর্কে নিশ্চিত না বা টাইপ চেকিং এড়িয়ে যেতে চাই তখন any ব্যবহার করা হয়। any ব্যবহার করা রেকোমেন্ডেট না। 
+```
+let myAny: any = "Hello";
+myAny = 10;
+```
+এটি কম্পাইল টাইমে কোন এরর দিবেনা। 
+
+unknown: টাইপ এর মানে - আমরা জানিনা যে টাইপ কি হবে। এটা any এর মতোই তবে ভেরিয়েবল এর উপর সরাসরি কোন কাজ করা যায় না, তার আগে আমাদের টাইপ চেক করতে হয় (typeof ব্যবহার করে)।
+```
+let myUnknown: unknown = "TypeScript";
+
+if (typeof myUnknown === 'string') { 
+console.log(myUnknown.toUpperCase()); 
+}
+``` 
+
+never: টাইপ - জীবনে কোন দিন কোন কিছু return করবেনা এমন ক্ষেত্রে never type ব্যবহার করা হয়। 
+```
+const throwError = (message: string): never => {
+	throw new Error(message);
+}
+```
